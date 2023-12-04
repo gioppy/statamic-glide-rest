@@ -1,0 +1,34 @@
+{
+  "name": "gioppy/statamic-glide-rest",
+  "description": "An addon for Statamic 4 to add glide images on assets API endpoint",
+  "autoload": {
+    "psr-4": {
+      "Gioppy\\StatamicGlideRest\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Giovanni Buffa",
+      "email": "tech@giovannibuffa.it"
+    }
+  ],
+  "extra": {
+    "statamic": {
+      "name": "Statamic Glide Rest",
+      "description": "An addon for Statamic 4 to add glide images on assets API endpoint"
+    },
+    "laravel": {
+      "providers": [
+        "Gioppy\\StatamicGlideRest\\ServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "statamic/cms": "^4.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "pixelfear/composer-dist-plugin": false
+    }
+  }
+}
