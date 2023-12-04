@@ -22,6 +22,6 @@ class GlideController
       ->mapWithKeys(fn (string $preset) => [$preset => $asset->manipulate($config[$preset])]);
 
     //$asset->manipulate(['w' => 50])
-    return response()->json(collect($asset)->merge(['thumbnails' => $paths]));
+    return response()->json(['data' => collect($asset)->merge(['thumbnails' => $paths])]);
   }
 }
