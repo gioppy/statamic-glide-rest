@@ -2,14 +2,14 @@
 
 namespace Gioppy\StatamicGlideRest\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
+use Gioppy\StatamicGlideRest\Http\Resources\GlideResource;
 use Illuminate\Http\Request;
 use Statamic\Facades\Asset;
 
 class GlideController
 {
 
-  public function index(Request $request, string $container, string $path): JsonResponse
+  public function index(Request $request, string $container, string $path): GlideResource
   {
     $presets = explode(',', $request->query('presets'));
     $id = "{$container}::{$path}";
@@ -19,9 +19,21 @@ class GlideController
 
     $paths = collect($presets)
       ->filter(fn (string $preset) => array_key_exists($preset, $config))
-      ->mapWithKeys(fn (string $preset) => [$preset => $asset->manipulate($config[$preset])]);
+      ->mapWithKeys(function (string $preset) use ($asset, $config) {
+        $image = $asset->manipulate($config[$preset]);
+        $size = getimagesize($image);
+
+        return [
+          $preset => [
+            'width' => $size[0],
+            'height' => $size[1],
+            'url' => $image,
+          ]
+        ];
+      })
+      ->toArray();
 
     //$asset->manipulate(['w' => 50])
-    return response()->json(['data' => collect($asset)->merge(['thumbnails' => $paths])]);
+    return new GlideResource($asset, $paths);
   }
 }
