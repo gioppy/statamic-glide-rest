@@ -6,5 +6,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['api'])
   ->prefix('assets')
   ->group(function () {
-    Route::get('glide/{container}/{path}', [GlideController::class, 'index']);
+    Route::get('glide', [GlideController::class, 'index']);
   });
