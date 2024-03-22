@@ -12,7 +12,7 @@ composer require gioppy/statamic-glide-rest
 
 The plugin takes only glide presets at the moment, not inline definition of a thumbnail. Before use it, create some presets on regular config file (`config/statamic/assets.php`);
 
-After that, call the endpoint `/glide/{container}/{path}?presets=preset1,preset2,...` passing the **container name**, the **path** (or name) of the image and a list of a **presets**.
+After that, call the endpoint `/glide?presets=preset1,preset2,...&id=container::path` passing the **container name**, the **path** (or name) of the image and a list of a **presets**.
 
 The response is a normal asset response but with thumbnails node:
 ```json
